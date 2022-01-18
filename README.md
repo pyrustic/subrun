@@ -215,7 +215,7 @@ $ pip install gaspium --upgrade --upgrade-strategy eager
 # Demo
 A demo is available to play with as a **Github Gist**. Feel free to give a feedback in the comments section.
 
-**Play with the [Demo]().**
+**Play with the [Demo](https://gist.github.com/pyrustic/c05dc63b5e808c2695e775da5a6d0d7f).**
 
 <br>
 <br>
