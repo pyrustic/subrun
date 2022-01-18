@@ -1,0 +1,3 @@
+recursive-include subrun *
+global-exclude *.py[cod]
+include VERSION
