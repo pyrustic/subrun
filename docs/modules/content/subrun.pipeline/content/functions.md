@@ -2,21 +2,21 @@ Back to [All Modules](https://github.com/pyrustic/subrun/blob/master/docs/module
 
 # Module Overview
 
-> **subrun.pipeline**
-> 
-> No description
->
+**subrun.pipeline**
+ 
+Module to handle Pipeline commands
+
 > **Classes:** &nbsp; None
 >
-> **Functions:** &nbsp; [\_create\_info](#_create_info) &nbsp; [\_encode\_string](#_encode_string) &nbsp; [\_pipepline\_success](#_pipepline_success) &nbsp; [\_prepare\_command](#_prepare_command) &nbsp; [capture](#capture) &nbsp; [communicate](#communicate) &nbsp; [create](#create) &nbsp; [ghostrun](#ghostrun) &nbsp; [run](#run) &nbsp; [wait](#wait)
+> **Functions:** &nbsp; [\_create\_info](#_create_info) &nbsp;&nbsp; [\_encode\_string](#_encode_string) &nbsp;&nbsp; [\_pipepline\_success](#_pipepline_success) &nbsp;&nbsp; [\_prepare\_command](#_prepare_command) &nbsp;&nbsp; [capture](#capture) &nbsp;&nbsp; [communicate](#communicate) &nbsp;&nbsp; [create](#create) &nbsp;&nbsp; [ghostrun](#ghostrun) &nbsp;&nbsp; [run](#run) &nbsp;&nbsp; [wait](#wait)
 >
 > **Constants:** &nbsp; None
 
 # All Functions
-[\_create\_info](#_create_info) &nbsp; [\_encode\_string](#_encode_string) &nbsp; [\_pipepline\_success](#_pipepline_success) &nbsp; [\_prepare\_command](#_prepare_command) &nbsp; [capture](#capture) &nbsp; [communicate](#communicate) &nbsp; [create](#create) &nbsp; [ghostrun](#ghostrun) &nbsp; [run](#run) &nbsp; [wait](#wait)
+[\_create\_info](#_create_info) &nbsp;&nbsp; [\_encode\_string](#_encode_string) &nbsp;&nbsp; [\_pipepline\_success](#_pipepline_success) &nbsp;&nbsp; [\_prepare\_command](#_prepare_command) &nbsp;&nbsp; [capture](#capture) &nbsp;&nbsp; [communicate](#communicate) &nbsp;&nbsp; [create](#create) &nbsp;&nbsp; [ghostrun](#ghostrun) &nbsp;&nbsp; [run](#run) &nbsp;&nbsp; [wait](#wait)
 
 ## \_create\_info
-No description
+None
 
 
 
@@ -24,13 +24,15 @@ No description
 
 
 
-**Return Value:** None
+
+
+**Return Value:** None.
 
 [Back to Top](#module-overview)
 
 
 ## \_encode\_string
-No description
+None
 
 
 
@@ -38,13 +40,15 @@ No description
 
 
 
-**Return Value:** None
+
+
+**Return Value:** None.
 
 [Back to Top](#module-overview)
 
 
 ## \_pipepline\_success
-No description
+None
 
 
 
@@ -52,13 +56,15 @@ No description
 
 
 
-**Return Value:** None
+
+
+**Return Value:** None.
 
 [Back to Top](#module-overview)
 
 
 ## \_prepare\_command
-No description
+None
 
 
 
@@ -66,7 +72,9 @@ No description
 
 
 
-**Return Value:** None
+
+
+**Return Value:** None.
 
 [Back to Top](#module-overview)
 
@@ -81,14 +89,15 @@ Create a pipeline of commands then capture its output and error
 
 |Parameter|Description|
 |---|---|
-| \*commands| Strings or lists of commands with arguments.|
-|Example| "python -m this", "program arg1 arg2", ...|
-| input| String to send in the stdin of the new process|
-| cwd| Current Working Directory|
+|\*commands|Strings or lists of commands with arguments. Example: "python -m this", "program arg1 arg2", ...|
+|input|String to send in the stdin of the new process|
+|cwd|Current Working Directory |
 
 
 
-**Return Value:** An instance of the Info namedtuple
+
+
+**Return Value:** ['An instance of the Info namedtuple']
 
 [Back to Top](#module-overview)
 
@@ -103,11 +112,13 @@ Interact with a pipeline generator
 
 |Parameter|Description|
 |---|---|
-| generator| the pipeline as returned by the 'create' function|
+|generator|the pipeline as returned by the 'create' function |
 
 
 
-**Return Value:** An instance of the Info namedtuple
+
+
+**Return Value:** ['An instance of the Info namedtuple']
 
 [Back to Top](#module-overview)
 
@@ -122,17 +133,19 @@ Run a pipeline of commands and return a generator to iterate over the processes 
 
 |Parameter|Description|
 |---|---|
-| \*commands| Strings or lists of commands with arguments.|
-| input| String to send in the stdin of the new process|
-| cwd| Current Working Directory|
-| stdin| stdin|
-| stdout| stdout|
-| stderr| stderr|
-| \*\*popen\_kwargs| other popen kwargs|
+|\*commands|Strings or lists of commands with arguments.|
+|input|String to send in the stdin of the new process|
+|cwd|Current Working Directory|
+|stdin|stdin|
+|stdout|stdout|
+|stderr|stderr|
+|\*\*popen\_kwargs|other popen kwargs |
 
 
 
-**Return Value:** A generator to iterate over the processes created
+
+
+**Return Value:** ['A generator to iterate over the processes created']
 
 [Back to Top](#module-overview)
 
@@ -148,14 +161,15 @@ i.e. redirect output and error to DEVNULL
 
 |Parameter|Description|
 |---|---|
-| \*commands| Strings or lists of commands with arguments.|
-|Example| "python -m this", "program arg1 arg2", ...|
-| input| String to send in the stdin of the new process|
-| cwd| Current Working Directory|
+|\*commands|Strings or lists of commands with arguments. Example: "python -m this", "program arg1 arg2", ...|
+|input|String to send in the stdin of the new process|
+|cwd|Current Working Directory |
 
 
 
-**Return Value:** An instance of the Info namedtuple
+
+
+**Return Value:** ['An instance of the Info namedtuple']
 
 [Back to Top](#module-overview)
 
@@ -170,17 +184,18 @@ Create a pipeline of commands then run it
 
 |Parameter|Description|
 |---|---|
-| \*commands| Strings or lists of commands with arguments.|
-|Example| "python -m this", "program arg1 arg2", ...|
-| input| String to send in the stdin of the new process|
-| cwd| Current Working Directory|
-| stdin| stdin|
-| stdout| stdout|
-| stderr| stderr|
+|\*commands|Strings or lists of commands with arguments. Example: "python -m this", "program arg1 arg2", ...|
+|input|String to send in the stdin of the new process|
+|cwd|Current Working Directory|
+|stdin|stdin|
+|stdout|stdout|
+|stderr|stderr |
 
 
 
-**Return Value:** An instance of the Info namedtuple
+
+
+**Return Value:** ['An instance of the Info namedtuple']
 
 [Back to Top](#module-overview)
 
@@ -195,11 +210,13 @@ Iterate over a pipeline generator and wait for processes to terminate
 
 |Parameter|Description|
 |---|---|
-| generator| the pipeline as returned by the 'create' function|
+|generator|the pipeline as returned by the 'create' function |
 
 
 
-**Return Value:** An instance of the Info namedtuple
+
+
+**Return Value:** ['An instance of the Info namedtuple']
 
 [Back to Top](#module-overview)
 

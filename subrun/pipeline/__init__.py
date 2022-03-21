@@ -1,3 +1,4 @@
+"""Module to handle Pipeline commands"""
 import sys
 import shlex
 import subprocess
@@ -20,7 +21,7 @@ def run(*commands, input=None, cwd=None, stdin=None, stdout=None, stderr=None):
     - stdout: stdout
     - stderr: stderr
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     generator = create(*commands, input=input, cwd=cwd,
@@ -39,7 +40,7 @@ def ghostrun(*commands, input=None, cwd=None):
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     generator = create(*commands, input=input, cwd=cwd,
@@ -59,7 +60,7 @@ def capture(*commands, input=None, cwd=None):
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     generator = create(*commands, input=input, cwd=cwd,
@@ -87,7 +88,7 @@ def create(*commands, input=None, cwd=None,
     - stderr: stderr
     - **popen_kwargs: other popen kwargs
 
-    [return value]
+    [return]
     A generator to iterate over the processes created
     """
     if len(commands) < 2:
@@ -124,7 +125,7 @@ def wait(generator):
     [parameters]
     - generator: the pipeline as returned by the 'create' function
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     process = None
@@ -148,7 +149,7 @@ def communicate(generator):
     [parameters]
     - generator: the pipeline as returned by the 'create' function
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     process = None

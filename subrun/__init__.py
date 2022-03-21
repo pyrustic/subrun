@@ -1,8 +1,9 @@
+"""Main module"""
 import sys
 import shlex
 import subprocess
 import tempfile
-from subrun import error
+from subrun.error import Error
 from collections import namedtuple
 
 
@@ -20,7 +21,7 @@ def run(command, input=None, cwd=None, stdin=None,
     - stderr: stderr
     - timeout: in seconds
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     process = create(command, input=input, cwd=cwd, stdin=stdin, stdout=stdout, stderr=stderr)
@@ -37,7 +38,7 @@ def ghostrun(command, input=None, cwd=None, timeout=None):
     - cwd: Current Working Directory
     - timeout: in seconds
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     process = create(command, input=input, cwd=cwd,
@@ -57,7 +58,7 @@ def capture(command, input=None, cwd=None, timeout=None):
     - cwd: Current Working Directory
     - timeout: in seconds
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     process = create(command, cwd=cwd, stdin=subprocess.PIPE,
@@ -82,7 +83,7 @@ def create(command, input=None, cwd=None, stdin=None,
     - stderr: stderr
     - **popen_kwargs: other popen kwargs
 
-    [return value]
+    [return]
     A process object, i.e. an instance of subprocess.Popen
     """
     command = _prepare_command(command)
@@ -111,7 +112,7 @@ def wait(process, timeout=None):
     - process: process object
     - timeout: in seconds
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     timeout_expired = False
@@ -136,7 +137,7 @@ def communicate(process, input=None, timeout=None):
     - input: String to send in the stdin of the new process
     - timeout: in seconds
 
-    [return value]
+    [return]
     An instance of the Info namedtuple
     """
     input = _encode_string(input)
@@ -167,7 +168,7 @@ def _create_info(process, success=None, return_code=None, output=None, error=Non
 
 def _prepare_command(command):
     if not command:
-        raise error.Error("Missing command")
+        raise Error("Missing command")
     if isinstance(command, str):
         command = shlex.split(command, comments=False, posix=True)
     head = command[0]
@@ -182,7 +183,7 @@ def _encode_string(data):
             data = data.encode("utf-8")
         except Exception as e:
             msg = "Failed to encode data"
-            raise error.Error(msg) from None
+            raise Error(msg) from None
     return data
 
 
@@ -192,4 +193,4 @@ def _join_command(command):
         " ".join(shlex.quote(item) for item in command)
     except Exception as e:
         msg = "Failed to join the command"
-        raise error.Error(msg) from None
+        raise Error(msg) from None

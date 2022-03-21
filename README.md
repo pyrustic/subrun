@@ -1,8 +1,8 @@
 # Subrun
-**An elegant API to safely start and communicate with processes in Python.**
+**Intuitive API to safely start and communicate with processes in Python.**
 
 This project is part of the [Pyrustic Open Ecosystem](https://pyrustic.github.io).
-> [Installation](#installation) . [Demo](#demo) . [Latest](https://github.com/pyrustic/subrun/tags) . [Documentation](https://github.com/pyrustic/gaspium/tree/master/docs#readme)
+> [Installation](#installation) . [Demo](#demo) . [Latest](https://github.com/pyrustic/subrun/tags) . [Documentation](https://github.com/pyrustic/subrun/tree/master/docs/modules#readme)
 
 ## Table of contents
 - [Overview](#overview) 
@@ -12,6 +12,7 @@ This project is part of the [Pyrustic Open Ecosystem](https://pyrustic.github.io
   - [Capture](#capture) 
 - [Base functions](#base-functions)
 - [Pipeline](#pipeline)
+- [Related project](#related-project)
 - [Installation](#installation)
 - [Demo](#demo)
 
@@ -76,10 +77,6 @@ $ python -m script
 Hello Alex ! You are a Male !
 ```
 
-
-> **Read the [modules documentation]() or play with the [demo]().**
-
-
 ## Ghostrun
 Use the **ghostrun** function to run a command without any feedback. **Ghostrun** is like the **run** function with one twist: `stderr` and `stdout` are redirected to [devnull](https://en.wikipedia.org/wiki/Devnull). This function returns a NamedTuple with useful information (e.g., the return code of the process, the `success` boolean, et cetera).
 
@@ -98,8 +95,6 @@ $ python -m script
 $
 ```
 
-> **Read the [modules documentation]() or play with the [demo]().**
-
 ## Capture
 Use the **capture** function to run and capture the output of a command. This function returns a NamedTuple instance with useful information (e.g., the return code of the process, the `stdout` data, the `stderr` data, et cetera).
 
@@ -113,7 +108,6 @@ info = subrun.capture(command)  # returns a NamedTuple instance
 # info.output contains the Zen Of Python as encoded bytes
 ```
 
-> **Read the [modules documentation]() or play with the [demo]().**
 
 # Base functions
 The **run**, **ghostrun**, and **capture** functions use three base functions:
@@ -143,8 +137,6 @@ process = subrun.create(command)
 # Capture the output of the process
 info = subrun.communicate(process, input="Alex\nMale")
 ```
-
-> **Read the [modules documentation]() or play with the [demo]().**
 
 # Pipeline
 The `subrun.pipeline` module reproduces the same API as in `subrun` with a twist: you must provide more than one command which will be chained and executed.
@@ -194,21 +186,26 @@ generator = pipeline.create(command1, command2, command3)
 pipeline.communicate(generator)
 ```
 
-> **Read the [modules documentation]() or play with the [demo]().**
+# Related project
+**Backstage** is a **language-agnostic** command-line tool that allows the developer to define, coordinate and use the various resources at his disposal to create and manage a software project.
+
+**Backstage** uses **Subrun** extensively.
+
+> **Discover [Backstage](https://github.com/pyrustic/backstage#readme) !**
 
 
 # Installation
-**Gaspium** is **cross platform** and versions under **1.0.0** will be considered **Beta** at best. It is built on [Ubuntu](https://ubuntu.com/download/desktop) with [Python 3.8](https://www.python.org/downloads/) and should work on **Python 3.5** or **newer**.
+**Subrun** is **cross platform** and versions under **1.0.0** will be considered **Beta** at best. It is built on [Ubuntu](https://ubuntu.com/download/desktop) with [Python 3.8](https://www.python.org/downloads/) and should work on **Python 3.5** or **newer**.
 
 ## For the first time
 
 ```bash
-$ pip install gaspium
+$ pip install subrun
 ```
 
 ## Upgrade
 ```bash
-$ pip install gaspium --upgrade --upgrade-strategy eager
+$ pip install subrun --upgrade --upgrade-strategy eager
 
 ```
 
