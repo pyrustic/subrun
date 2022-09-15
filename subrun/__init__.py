@@ -4,7 +4,7 @@ import shlex
 import subprocess
 import tempfile
 from subrun.error import Error
-from collections import namedtuple
+from subrun import dto
 
 
 def run(command, input=None, cwd=None, stdin=None,
@@ -24,7 +24,8 @@ def run(command, input=None, cwd=None, stdin=None,
     [return]
     An instance of the Info namedtuple
     """
-    process = create(command, input=input, cwd=cwd, stdin=stdin, stdout=stdout, stderr=stderr)
+    process = create(command, input=input, cwd=cwd, stdin=stdin,
+                     stdout=stdout, stderr=stderr)
     return wait(process, timeout)
 
 
@@ -160,10 +161,8 @@ def communicate(process, input=None, timeout=None):
 
 def _create_info(process, success=None, return_code=None, output=None, error=None,
                  timeout_expired=None):
-    Info = namedtuple("Info", ["process", "success", "return_code",
-                               "output", "error", "timeout_expired"])
-    token = Info(process, success, return_code, output, error, timeout_expired)
-    return token
+    info = dto.Info(process, success, return_code, output, error, timeout_expired)
+    return info
 
 
 def _prepare_command(command):

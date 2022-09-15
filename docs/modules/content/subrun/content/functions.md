@@ -16,7 +16,7 @@ Main module
 [\_create\_info](#_create_info) &nbsp;&nbsp; [\_encode\_string](#_encode_string) &nbsp;&nbsp; [\_join\_command](#_join_command) &nbsp;&nbsp; [\_prepare\_command](#_prepare_command) &nbsp;&nbsp; [capture](#capture) &nbsp;&nbsp; [communicate](#communicate) &nbsp;&nbsp; [create](#create) &nbsp;&nbsp; [ghostrun](#ghostrun) &nbsp;&nbsp; [run](#run) &nbsp;&nbsp; [wait](#wait)
 
 ## \_create\_info
-None
+No description
 
 
 
@@ -26,13 +26,13 @@ None
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
 
 ## \_encode\_string
-None
+No description
 
 
 
@@ -42,7 +42,7 @@ None
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
@@ -58,13 +58,13 @@ Inverse the operation made by shlex.split
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
 
 ## \_prepare\_command
-None
+No description
 
 
 
@@ -74,7 +74,7 @@ None
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
@@ -98,7 +98,7 @@ Run a command and capture its output and error
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -121,7 +121,7 @@ Interact with the process
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -148,7 +148,7 @@ Run a command and return a process object
 
 
 
-**Return Value:** ['A process object, i.e. an instance of subprocess.Popen']
+**Return Value:** A process object, i.e. an instance of subprocess.Popen
 
 [Back to Top](#module-overview)
 
@@ -172,7 +172,7 @@ Run a command in ghost mode, i.e. redirect output and error to DEVNULL
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -199,7 +199,7 @@ Run a command
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -221,7 +221,7 @@ Wait for process to terminate
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 

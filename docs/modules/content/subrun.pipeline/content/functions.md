@@ -16,23 +16,23 @@ Module to handle Pipeline commands
 [\_create\_info](#_create_info) &nbsp;&nbsp; [\_encode\_string](#_encode_string) &nbsp;&nbsp; [\_pipepline\_success](#_pipepline_success) &nbsp;&nbsp; [\_prepare\_command](#_prepare_command) &nbsp;&nbsp; [capture](#capture) &nbsp;&nbsp; [communicate](#communicate) &nbsp;&nbsp; [create](#create) &nbsp;&nbsp; [ghostrun](#ghostrun) &nbsp;&nbsp; [run](#run) &nbsp;&nbsp; [wait](#wait)
 
 ## \_create\_info
-None
+No description
 
 
 
-**Signature:** (process, success=None, return\_code=None, output=None, error=None, return\_codes=None)
+**Signature:** (process, success=None, return\_code=None, output=None, error=None, return\_codes=None, timeout\_expired=None)
 
 
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
 
 ## \_encode\_string
-None
+No description
 
 
 
@@ -42,13 +42,13 @@ None
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
 
 ## \_pipepline\_success
-None
+No description
 
 
 
@@ -58,13 +58,13 @@ None
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
 
 ## \_prepare\_command
-None
+No description
 
 
 
@@ -74,7 +74,7 @@ None
 
 
 
-**Return Value:** None.
+**Return Value:** None
 
 [Back to Top](#module-overview)
 
@@ -85,19 +85,20 @@ Create a pipeline of commands then capture its output and error
 
 
 
-**Signature:** (\*commands, input=None, cwd=None)
+**Signature:** (\*commands, input=None, cwd=None, timeout=None)
 
 |Parameter|Description|
 |---|---|
 |\*commands|Strings or lists of commands with arguments. Example: "python -m this", "program arg1 arg2", ...|
 |input|String to send in the stdin of the new process|
-|cwd|Current Working Directory |
+|cwd|Current Working Directory|
+|timeout|in seconds |
 
 
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -108,17 +109,18 @@ Interact with a pipeline generator
 
 
 
-**Signature:** (generator)
+**Signature:** (generator, timeout=None)
 
 |Parameter|Description|
 |---|---|
-|generator|the pipeline as returned by the 'create' function |
+|generator|the pipeline as returned by the 'create' function|
+|timeout|in seconds |
 
 
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -145,7 +147,7 @@ Run a pipeline of commands and return a generator to iterate over the processes 
 
 
 
-**Return Value:** ['A generator to iterate over the processes created']
+**Return Value:** A generator to iterate over the processes created
 
 [Back to Top](#module-overview)
 
@@ -157,19 +159,20 @@ i.e. redirect output and error to DEVNULL
 
 
 
-**Signature:** (\*commands, input=None, cwd=None)
+**Signature:** (\*commands, input=None, cwd=None, timeout=None)
 
 |Parameter|Description|
 |---|---|
 |\*commands|Strings or lists of commands with arguments. Example: "python -m this", "program arg1 arg2", ...|
 |input|String to send in the stdin of the new process|
-|cwd|Current Working Directory |
+|cwd|Current Working Directory|
+|timeout|in seconds |
 
 
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -180,7 +183,7 @@ Create a pipeline of commands then run it
 
 
 
-**Signature:** (\*commands, input=None, cwd=None, stdin=None, stdout=None, stderr=None)
+**Signature:** (\*commands, input=None, cwd=None, stdin=None, stdout=None, stderr=None, timeout=None)
 
 |Parameter|Description|
 |---|---|
@@ -189,13 +192,14 @@ Create a pipeline of commands then run it
 |cwd|Current Working Directory|
 |stdin|stdin|
 |stdout|stdout|
-|stderr|stderr |
+|stderr|stderr|
+|timeout|in seconds |
 
 
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 
@@ -206,17 +210,18 @@ Iterate over a pipeline generator and wait for processes to terminate
 
 
 
-**Signature:** (generator)
+**Signature:** (generator, timeout=None)
 
 |Parameter|Description|
 |---|---|
-|generator|the pipeline as returned by the 'create' function |
+|generator|the pipeline as returned by the 'create' function|
+|timeout|in seconds |
 
 
 
 
 
-**Return Value:** ['An instance of the Info namedtuple']
+**Return Value:** An instance of the Info namedtuple
 
 [Back to Top](#module-overview)
 

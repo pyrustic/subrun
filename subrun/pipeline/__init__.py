@@ -5,10 +5,11 @@ import subprocess
 import tempfile
 import subrun
 from subrun.error import Error
-from collections import namedtuple
+from subrun import dto
 
 
-def run(*commands, input=None, cwd=None, stdin=None, stdout=None, stderr=None):
+def run(*commands, input=None, cwd=None, stdin=None, stdout=None, stderr=None,
+        timeout=None):
     """
     Create a pipeline of commands then run it
 
@@ -20,16 +21,17 @@ def run(*commands, input=None, cwd=None, stdin=None, stdout=None, stderr=None):
     - stdin: stdin
     - stdout: stdout
     - stderr: stderr
+    - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
     """
     generator = create(*commands, input=input, cwd=cwd,
-                      stdin=stdin, stdout=stdout, stderr=stderr)
-    return wait(generator)
+                       stdin=stdin, stdout=stdout, stderr=stderr)
+    return wait(generator, timeout)
 
 
-def ghostrun(*commands, input=None, cwd=None):
+def ghostrun(*commands, input=None, cwd=None, timeout=None):
     """
     Create a pipeline of commands then run it in ghost mode,
     i.e. redirect output and error to DEVNULL
@@ -39,18 +41,19 @@ def ghostrun(*commands, input=None, cwd=None):
     Example: "python -m this", "program arg1 arg2", ...
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
+    - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
     """
     generator = create(*commands, input=input, cwd=cwd,
-                      stdin=subprocess.DEVNULL,
-                      stdout=subprocess.DEVNULL,
-                      stderr=subprocess.DEVNULL)
-    return wait(generator)
+                       stdin=subprocess.DEVNULL,
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL)
+    return wait(generator, timeout)
 
 
-def capture(*commands, input=None, cwd=None):
+def capture(*commands, input=None, cwd=None, timeout=None):
     """
     Create a pipeline of commands then capture its output and error
 
@@ -59,15 +62,16 @@ def capture(*commands, input=None, cwd=None):
     Example: "python -m this", "program arg1 arg2", ...
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
+    - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
     """
     generator = create(*commands, input=input, cwd=cwd,
-                      stdin=subprocess.PIPE,
-                      stdout=subprocess.PIPE,
-                      stderr=subprocess.PIPE)
-    return communicate(generator)
+                       stdin=subprocess.PIPE,
+                       stdout=subprocess.PIPE,
+                       stderr=subprocess.PIPE)
+    return communicate(generator, timeout)
 
 
 # ========= Base Functions ==========
@@ -118,12 +122,13 @@ def create(*commands, input=None, cwd=None,
         yield process
 
 
-def wait(generator):
+def wait(generator, timeout=None):
     """
     Iterate over a pipeline generator and wait for processes to terminate
 
     [parameters]
     - generator: the pipeline as returned by the 'create' function
+    - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
@@ -133,21 +138,29 @@ def wait(generator):
     if not processes:
         raise Error("This pipeline is empty")
     return_codes = []
+    timeout_expired = False
     for process in processes:
-        process.wait()
+        try:
+            process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timeout_expired = True
+            process.kill()
+            process.wait()
         return_codes.append(process.returncode)
     success = _pipepline_success(return_codes)
     return _create_info(process, success=success,
                         return_code=process.returncode,
-                        return_codes=return_codes)
+                        return_codes=return_codes,
+                        timeout_expired=timeout_expired)
 
 
-def communicate(generator):
+def communicate(generator, timeout=None):
     """
     Interact with a pipeline generator
 
     [parameters]
     - generator: the pipeline as returned by the 'create' function
+    - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
@@ -158,10 +171,16 @@ def communicate(generator):
         raise Error("This pipeline is empty")
     last_index = len(processes) - 1
     return_codes = []
+    timeout_expired = False
     for i, process in enumerate(processes):
         if i == last_index:
             break
-        process.wait()
+        try:
+            process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timeout_expired = True
+            process.kill()
+            process.wait()
         return_codes.append(process.returncode)
     output, error = process.communicate()
     return_codes.append(process.returncode)
@@ -169,19 +188,21 @@ def communicate(generator):
     info = _create_info(process, success=success,
                         return_code=process.returncode,
                         output=output, error=error,
-                        return_codes=return_codes)
+                        return_codes=return_codes,
+                        timeout_expired=timeout_expired)
     return info
 
 
 # =========== Internals ============
 
 
-def _create_info(process, success=None, return_code=None, output=None, error=None,
-                 return_codes=None):
-    Info = namedtuple("Info", ["process", "success", "return_code",
-                               "output", "error", "return_codes"])
-    token = Info(process, success, return_code, output, error, return_codes)
-    return token
+def _create_info(process, success=None, return_code=None,
+                 output=None, error=None, return_codes=None,
+                 timeout_expired=None):
+    info = dto.PipelineInfo(process, success, return_code,
+                            output, error, return_codes,
+                            timeout_expired)
+    return info
 
 
 def _prepare_command(command):
