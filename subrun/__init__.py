@@ -37,7 +37,7 @@ def ghostrun(command, input=None, cwd=None, stdin=None, timeout=None):
     - command: String or list of a command with arguments. Example: "python -m this"
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
-    - stdin
+    - stdin: stdin
     - timeout: in seconds
 
     [return]
