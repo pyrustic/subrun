@@ -31,7 +31,7 @@ def run(*commands, input=None, cwd=None, stdin=None, stdout=None, stderr=None,
     return wait(generator, timeout)
 
 
-def ghostrun(*commands, input=None, cwd=None, timeout=None):
+def ghostrun(*commands, input=None, cwd=None, stdin=None, timeout=None):
     """
     Create a pipeline of commands then run it in ghost mode,
     i.e. redirect output and error to DEVNULL
@@ -41,19 +41,20 @@ def ghostrun(*commands, input=None, cwd=None, timeout=None):
     Example: "python -m this", "program arg1 arg2", ...
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
+    - stdin: stdin
     - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
     """
     generator = create(*commands, input=input, cwd=cwd,
-                       stdin=subprocess.DEVNULL,
+                       stdin=stdin,
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL)
     return wait(generator, timeout)
 
 
-def capture(*commands, input=None, cwd=None, timeout=None):
+def capture(*commands, input=None, cwd=None, stdin=None, timeout=None):
     """
     Create a pipeline of commands then capture its output and error
 
@@ -62,13 +63,15 @@ def capture(*commands, input=None, cwd=None, timeout=None):
     Example: "python -m this", "program arg1 arg2", ...
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
+    - stdin: stdin
     - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
     """
+    stdin = subprocess.PIPE if stdin is None else stdin
     generator = create(*commands, input=input, cwd=cwd,
-                       stdin=subprocess.PIPE,
+                       stdin=stdin,
                        stdout=subprocess.PIPE,
                        stderr=subprocess.PIPE)
     return communicate(generator, timeout)

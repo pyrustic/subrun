@@ -29,7 +29,7 @@ def run(command, input=None, cwd=None, stdin=None,
     return wait(process, timeout)
 
 
-def ghostrun(command, input=None, cwd=None, timeout=None):
+def ghostrun(command, input=None, cwd=None, stdin=None, timeout=None):
     """
     Run a command in ghost mode, i.e. redirect output and error to DEVNULL
 
@@ -37,19 +37,20 @@ def ghostrun(command, input=None, cwd=None, timeout=None):
     - command: String or list of a command with arguments. Example: "python -m this"
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
+    - stdin
     - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
     """
     process = create(command, input=input, cwd=cwd,
-                     stdin=subprocess.DEVNULL,
+                     stdin=stdin,
                      stdout=subprocess.DEVNULL,
                      stderr=subprocess.DEVNULL)
     return wait(process, timeout=timeout)
 
 
-def capture(command, input=None, cwd=None, timeout=None):
+def capture(command, input=None, cwd=None, stdin=None, timeout=None):
     """
     Run a command and capture its output and error
 
@@ -57,12 +58,14 @@ def capture(command, input=None, cwd=None, timeout=None):
     - command: String or list of a command with arguments. Example: "python -m this"
     - input: String to send in the stdin of the new process
     - cwd: Current Working Directory
+    - stdin: stdin
     - timeout: in seconds
 
     [return]
     An instance of the Info namedtuple
     """
-    process = create(command, cwd=cwd, stdin=subprocess.PIPE,
+    stdin = subprocess.PIPE if stdin is None else stdin
+    process = create(command, cwd=cwd, stdin=stdin,
                      stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return communicate(process, input=input, timeout=timeout)
 
